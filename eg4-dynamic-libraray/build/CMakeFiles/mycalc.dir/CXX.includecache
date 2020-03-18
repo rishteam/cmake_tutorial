@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Rish/Desktop/cmake_tutorial/eg3/calc.cpp
+calc.h
+C:/Users/Rish/Desktop/cmake_tutorial/eg3/calc.h
+
+C:/Users/Rish/Desktop/cmake_tutorial/eg3/calc.h
+

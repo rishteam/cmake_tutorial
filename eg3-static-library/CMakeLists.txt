@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(eg2)
+project(eg3)
 
 add_library(mycalc STATIC
     calc.cpp
     calc.h
 )
 
-add_executable(eg2
+add_executable(eg3
     main.cpp
 )
 
@@ -20,6 +20,6 @@ if(MSYS)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")
 endif(MSYS)
 
-target_link_libraries(eg2
+target_link_libraries(eg3
     mycalc
 )
