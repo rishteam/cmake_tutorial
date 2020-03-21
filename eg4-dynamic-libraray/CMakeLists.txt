@@ -1,25 +1,51 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(eg3)
-
-add_library(mycalc SHARED
-    calc.cpp
-    calc.h
+project(eg4
+    VERSION 0.0.1
+    DESCRIPTION "Dynamic library example"
+    HOMEPAGE_URL "http://blog.roy4801.tw/"
+    LANGUAGES CXX
 )
 
-add_executable(eg3
-    main.cpp
+# Add shared library
+add_library(mycalc SHARED
+    src/calc.cpp
+    include/calc.h
+)
+target_include_directories(mycalc
+    PRIVATE ${PROJECT_SOURCE_DIR}/include
+)
+
+# include(GenerateExportHeader)
+# generate_export_header(mycalc
+#     EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/calc_export.h
+# )
+
+add_executable(eg4
+    src/main.cpp
+)
+target_include_directories(eg4
+    PRIVATE ${PROJECT_SOURCE_DIR}/include
 )
 
 if(APPLE)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+    target_link_libraries(eg4
+        mycalc
+    )
 endif(APPLE)
 
 if(MSYS)
-    set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CSS_STANDARD_LIBRARIES}")
-    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")
+    target_link_libraries(eg4
+        mycalc
+        # For static libraries
+        -static-libgcc -static-libstdc++ -lwsock32 -lws2_32
+        -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive
+    )
 endif(MSYS)
 
-target_link_libraries(eg3
-    mycalc
-)
+if(MSVC)
+    message(FATAL_ERROR "Not support MSVC yet")
+    target_link_libraries(eg4
+        mycalc
+    )
+endif(MSVC)

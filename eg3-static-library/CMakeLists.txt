@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(eg2
+project(eg3
     VERSION 0.0.1
-    DESCRIPTION "This is third cmake tutorial project"
+    DESCRIPTION "Static library example"
     HOMEPAGE_URL "http://blog.roy4801.tw/"
     LANGUAGES CXX
 )
@@ -10,7 +10,6 @@ project(eg2
 # Add static library
 add_library(mycalc STATIC
     src/calc.cpp
-    include/calc.h
 )
 target_include_directories(mycalc
     PRIVATE ${PROJECT_SOURCE_DIR}/include
@@ -38,3 +37,9 @@ if(MSYS)
         -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive
     )
 endif(MSYS)
+
+if(MSVC)
+    target_link_libraries(eg3
+        mycalc
+    )
+endif(MSVC)
