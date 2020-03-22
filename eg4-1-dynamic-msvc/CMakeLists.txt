@@ -8,19 +8,15 @@ project(eg4
 )
 
 # Add shared library
-add_library(mycalc SHARED
+add_library(mycalc
     src/calc.cpp
-    include/calc.h
 )
 target_include_directories(mycalc
-    PRIVATE ${PROJECT_SOURCE_DIR}/include
+    PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
-
-include(GenerateExportHeader)
-generate_export_header(mycalc
-    EXPORT_MACRO_NAME MYCALC_API)
-#     EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/calc_export.h
-# )
+if(NOT BUILD_SHARED_LIBS)
+  target_compile_definitions(mycalc PUBLIC MYLIB_STATIC_BUILD)
+endif()
 
 add_executable(eg4
     src/main.cpp

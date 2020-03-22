@@ -12,7 +12,7 @@ add_library(mycalc STATIC
     src/calc.cpp
 )
 target_include_directories(mycalc
-    PRIVATE ${PROJECT_SOURCE_DIR}/include
+    PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
 # Add the executable

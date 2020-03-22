@@ -1,17 +1,21 @@
 #pragma once
 
 #if defined(_WIN32) || defined(__CYGWIN__)
-    #if defined(mycalc_EXPORTS)
-        #ifdef __GNUC__
-            #define MYCALC_API __attribute__ ((dllexport))
-        #else
-            #define MYCALC_API __declspec(dllexport)
-        #endif
+    #ifdef MYCALC_STATIC
+        #define MYCALC_API
     #else
-        #ifdef __GNUC__
-            #define MYCALC_API __attribute__((dllimport))
+        #if defined(mycalc_EXPORTS)
+            #ifdef __GNUC__
+                #define MYCALC_API __attribute__ ((dllexport))
+            #else
+                #define MYCALC_API __declspec(dllexport)
+            #endif
         #else
-            #define MYCALC_API __declspec(dllimport)
+            #ifdef __GNUC__
+                #define MYCALC_API __attribute__((dllimport))
+            #else
+                #define MYCALC_API __declspec(dllimport)
+            #endif
         #endif
     #endif
 #else
